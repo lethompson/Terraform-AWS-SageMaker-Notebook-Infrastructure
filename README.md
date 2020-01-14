@@ -80,3 +80,31 @@ resource "aws_sagemaker_notebook_instance" "basic" {
   ...
 }
  ```
+ 
+   ### Notebook instance init script:
+   #### init script that downloads the notebook from the aws_s3_bucket.deep_racer_function_bucket
+
+ ```
+# sagemaker.tf
+
+resource "aws_sagemaker_notebook_instance" "basic" {
+  name                  = "my-deepracer-model"
+  role_arn              = "${aws_iam_role.sm_notebook_instance_role.arn}"
+  instance_type         = "ml.t3.xlarge"
+  lifecycle_config_name = "${aws_sagemaker_notebook_instance_lifecycle_configuration.basic_lifecycle.name}"
+  ...
+}
+
+resource "aws_sagemaker_notebook_instance_lifecycle_configuration" "basic_lifecycle" {
+  name     = "BasicNotebookInstanceLifecycleConfig"
+
+  on_start = "${base64encode(data.template_file.instance_init.rendered)}"
+  ...
+}
+
+data "template_file" "instance_init" {
+  template = "${file("${path.module}/template/sagemaker_instance_init.sh")}"
+  ...
+}
+
+ ```
