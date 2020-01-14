@@ -28,7 +28,6 @@ resource "aws_iam_role_policy_attachment" "sm_notebook_instance" {
   policy_arn = "${aws_iam_policy.sm_notebook_instance_policy.arn}"
 }
 
-
 resource "aws_iam_policy" "sm_notebook_instance_policy" {
   name        = "sm-notebook-instance-policy"
   description = "Policy for the Notebook Instance to manage training jobs, models and endpoints"
