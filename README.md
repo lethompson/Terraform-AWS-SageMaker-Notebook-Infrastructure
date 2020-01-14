@@ -1,1 +1,27 @@
 # Terraform-AWS-SageMaker-Notebook-Infrastructure
+
+Machine Learning Infrastructure with Amazon SageMaker and Terraform - DeepRacer Setup
+--------------------------------------------------------------------------------------------------------------
+
+
+### Infrastructure setup for the Amazon SageMaker Notebook instance with (Jupyter Notebook)
+```
+> mkdir -p terraform
+```
+
+```
+> cd terraform
+ ```
+ 
+ ### IAM Role and Policy for the notebook instance:
+
+ ```
+# iam_sagemaker.tf
+
+resource "aws_iam_role" "sm_notebook_instance_role" {
+  name = "sm-notebook-instance-role"
+   ...
+  }
+
+ ```
+ 
