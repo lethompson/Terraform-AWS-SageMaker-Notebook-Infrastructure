@@ -36,4 +36,34 @@ resource "aws_iam_policy" "sm_notebook_instance_policy" {
 
  ```
  
+ ### S3 bucket for storing the Jupyter notebook:
 
+ ```
+# s3_lambda.tf
+
+resource "aws_s3_bucket" "deep_racer_function_bucket" {
+  bucket = "${var.function_bucket_name}-${var.aws_region}"
+  acl    = "private"
+  ...
+  }
+
+
+ ```
+ 
+ ### S3 bucket for storing training data as well as generated model data:
+
+ ```
+# s3_sagemaker.tf
+
+resource "aws_s3_bucket" "s3_bucket_1" {
+  bucket        = "${var.s3_bucket_name_1}-${var.aws_region}"
+  acl           = "private"
+  ...
+ }
+ 
+resource "aws_s3_bucket_object" "s3_deep_racer_notebook" {
+  bucket = "${aws_s3_bucket.deep_racer_function_bucket.id}"
+  key    = "tf-deep-racer-using-machine-learning/${var.function_version}/notebooks/DeepRacerLogAnalysis.ipynb"
+  source = "${path.module}/../source/notebooks/DeepRacerLogAnalysis.ipynb"
+}
+ ```
