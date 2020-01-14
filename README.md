@@ -67,3 +67,16 @@ resource "aws_s3_bucket_object" "s3_deep_racer_notebook" {
   source = "${path.module}/../source/notebooks/DeepRacerLogAnalysis.ipynb"
 }
  ```
+ 
+  ### Amazon SageMaker notebook instance:
+
+ ```
+# sagemaker.tf
+
+resource "aws_sagemaker_notebook_instance" "basic" {
+  name                  = "my-deepracer-model"
+  role_arn              = "${aws_iam_role.sm_notebook_instance_role.arn}"
+  instance_type         = "ml.t3.xlarge"
+  ...
+}
+ ```
