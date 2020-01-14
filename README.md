@@ -108,3 +108,11 @@ data "template_file" "instance_init" {
 }
 
  ```
+
+   ### sagemaker_instance_init.sh (script to copy Juypter notebook code from S3 bucket to Sagemaker instance)
+   
+   ```
+   cd /home/ec2-user/SageMaker
+   aws s3 cp s3://${function_bucket_name}-${aws_region}/tf-deep-racer-using-machine-learning/${function_version}/notebooks  /DeepRacerLogAnalysis.ipynb .
+   ```
+ 
